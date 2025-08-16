@@ -1,2 +1,48 @@
 @import "tailwindcss";
- 
+
+/* Standardized Font Sizes */
+:root {
+    --font-xs: 0.75rem;
+    /* 12px */
+    --font-sm: 0.875rem;
+    /* 14px */
+    --font-base: 1rem;
+    /* 16px */
+    --font-lg: 1.125rem;
+    /* 18px */
+    --font-xl: 1.25rem;
+    /* 20px */
+    --font-2xl: 1.5rem;
+    /* 24px */
+    --font-3xl: 1.875rem;
+    /* 30px */
+}
+
+/* Custom utility classes for consistent font sizes */
+.text-xs-standard {
+    font-size: var(--font-xs);
+}
+
+.text-sm-standard {
+    font-size: var(--font-sm);
+}
+
+.text-base-standard {
+    font-size: var(--font-base);
+}
+
+.text-lg-standard {
+    font-size: var(--font-lg);
+}
+
+.text-xl-standard {
+    font-size: var(--font-xl);
+}
+
+.text-2xl-standard {
+    font-size: var(--font-2xl);
+}
+
+.text-3xl-standard {
+    font-size: var(--font-3xl);
+}

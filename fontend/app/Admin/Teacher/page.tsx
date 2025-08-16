@@ -57,19 +57,19 @@ export default function Teacher() {
             </div>
             <div className=" flex flex-row bg-white shadow-lg h-[50] items-center gap-6 p-4 ">
                 <CustomButton
-                    button_icon={<FaPlus className="w-4 h-4 text-[10px]" />}
+                    button_icon={<FaPlus className="w-4 h-4 text-xs-standard" />}
                     button_color="#2F80ED"
                     button_hovercolor="#1366d6"
                     button_title="Add student"
                 />
                 <CustomButton
-                    button_icon={<FaFileExport className="w-4 h-4 text-[10px]" />}
+                    button_icon={<FaFileExport className="w-4 h-4 text-xs-standard" />}
                     button_color="#2F80ED"
                     button_hovercolor="#1366d6"
                     button_title="Export List"
                 />
                 <CustomButton
-                    button_icon={<FaFileImport className="w-4 h-4 text-[10px]" />}
+                    button_icon={<FaFileImport className="w-4 h-4 text-xs-standard" />}
                     button_color="#2F80ED"
                     button_hovercolor="#1366d6"
                     button_title="Import List"

@@ -70,11 +70,17 @@ export default function AdminLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="flex flex-col min-h-screen bg-white">
-            <CustomHeader headerlog="/logo.svg" thememode="Darkmode" usertype="Admin" />
-            <div className="flex flex-1 ">
+        <div className="flex h-screen bg-gray-50 overflow-hidden">
+            <div className="fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 z-30 hidden lg:block overflow-y-auto bg-gray-800 mt-10">
                 <CustomSideBar links={links} />
-                <main className="flex-1 p-6 ml-3 bg-white">{children}</main>
+            </div>
+            <div className="flex flex-col flex-1 lg:ml-64">
+                <div className="fixed top-0 right-0 left-0 lg:left-0 z-50">
+                    <CustomHeader headerlog="/logo.svg" thememode="Darkmode" usertype="Admin" />
+                </div>
+                <main className="flex-1 p-4 lg:p-6 mt-16 lg:mt-20 overflow-y-auto">
+                    {children}
+                </main>
             </div>
         </div>
     );

@@ -18,7 +18,7 @@ const CustomTable = ({ table_title, search_placeholder, tabledata }: custom_tabl
     return (
         <div className="flex flex-col space-y-4">
             <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2 md:mb-0">
+                <h3 className="text-xl-standard font-semibold text-gray-800 mb-2 md:mb-0">
                     {table_title}
                 </h3>
             </div>
@@ -31,13 +31,13 @@ const CustomTable = ({ table_title, search_placeholder, tabledata }: custom_tabl
             </div>
             <div>
                 {tabledata.length === 0 ? (
-                    <div className="text-center py-4 text-gray-500 border border-gray-300 rounded-lg">
+                    <div className="text-center py-4 text-gray-500 border border-gray-300 rounded-lg text-base-standard">
                         No student data is Found
                     </div>
                 ) : (<table className="min-w-full border border-gray-300 rounded-lg overflow-hidden">
                     <thead className="bg-gray-100 border- border-gray-300">
                         <tr>
-                            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700 border-r border-gray-300">
+                            <th className="px-4 py-2 text-left text-sm-standard font-semibold text-gray-700 border-r border-gray-300">
                                 <input type="checkbox" className="text-blue-400"
                                     checked={selectedData.some(item => item.id === tabledata[0].id)}
                                     onChange={() => {
@@ -49,11 +49,11 @@ const CustomTable = ({ table_title, search_placeholder, tabledata }: custom_tabl
                                     }} />
                             </th>
                             {tableheader.map((header) => (
-                                <th key={header} className="px-4 py-2 text-left text-sm font-semibold text-gray-700 border-r border-gray-300">
+                                <th key={header} className="px-4 py-2 text-left text-sm-standard font-semibold text-gray-700 border-r border-gray-300">
                                     {header}
                                 </th>
                             ))}
-                            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700 border-r border-gray-300">
+                            <th className="px-4 py-2 text-left text-sm-standard font-semibold text-gray-700 border-r border-gray-300">
                                 Action
                             </th>
                         </tr>
@@ -82,7 +82,7 @@ const CustomTable = ({ table_title, search_placeholder, tabledata }: custom_tabl
                                         tableheader.map((header) => (
                                             <td
 
-                                                key={header} className={`px-4 py-2 border-r border-gray-300 ${row[header] === 'Active' ? " text-[#14CA35]" : row[header] === 'Inactive' ? "text-[#EB5757]" : ''}`}>
+                                                key={header} className={`px-4 py-2 border-r border-gray-300 text-sm-standard ${row[header] === 'Active' ? " text-[#14CA35]" : row[header] === 'Inactive' ? "text-[#EB5757]" : ''}`}>
                                                 {
                                                     header === 'profile' ?
                                                         (<CustomAvater profile_image={undefined} />) :
@@ -92,8 +92,8 @@ const CustomTable = ({ table_title, search_placeholder, tabledata }: custom_tabl
                                         ))
                                     }
                                     <td className="flex flex-row gap-2 items-center justify-center px-4 py-2 border-r border-gray-300 ">
-                                        <FaPen className="text-blue-500 text-[13px]" />
-                                        <FaTrash className="text-red-500 text-[13px]" />
+                                        <FaPen className="text-blue-500 text-xs-standard" />
+                                        <FaTrash className="text-red-500 text-xs-standard" />
                                     </td>
                                 </tr>
                             ))
