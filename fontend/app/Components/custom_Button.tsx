@@ -5,10 +5,12 @@ interface custom_button_props {
     button_title: string,
     button_color: string,
     button_hovercolor: string,
+    button_fun: () => void,
 }
-const CustomButton = ({ button_icon, button_title, button_color, button_hovercolor }: custom_button_props) => {
+const CustomButton = ({ button_icon, button_title, button_color, button_hovercolor, button_fun }: custom_button_props) => {
     return (
         <button
+            onClick={button_fun}
             style={{
                 backgroundColor: button_color
             }}

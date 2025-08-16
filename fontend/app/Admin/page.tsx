@@ -1,6 +1,10 @@
+'use client'
+import { useState } from "react";
 import { FaFileExport, FaFileImport, FaHeart, FaPlus, FaRegHeart, FaUser, FaUsers } from "react-icons/fa";
 import CustomButton from "../Components/custom_Button";
 import CustomCard from "../Components/custom_card";
+import CustomForm from "../Components/custom_form";
+import CustomModal from "../Components/custom_modal";
 import CustomTable from "../Components/custom_table";
 const students = [
     {
@@ -47,6 +51,8 @@ const students = [
 ];
 
 export default function Dashboard() {
+    const [openEditModal, setOpenEditModal] = useState(false);
+    const [openExportModal, setExportModal] = useState(false);
     return (
         <div className="flex flex-col space-y-4 ">
             {/* Card  */}
@@ -55,7 +61,6 @@ export default function Dashboard() {
                 <CustomCard icon={<FaHeart />} count_number='678' card_title='Active student' />
                 <CustomCard icon={<FaRegHeart />} count_number='67' card_title='InActive student' />
                 <CustomCard icon={<FaUsers />} count_number='800' card_title='student' />
-
             </div>
             <div className=" flex flex-row bg-white shadow-lg h-[50] items-center gap-6 p-4 ">
                 <CustomButton
@@ -63,21 +68,37 @@ export default function Dashboard() {
                     button_color="#2F80ED"
                     button_hovercolor="#1366d6"
                     button_title="Add student"
+                    button_fun={() => setOpenEditModal(true)}
                 />
                 <CustomButton
                     button_icon={<FaFileExport className="w-4 h-4 text-xs-standard" />}
                     button_color="#2F80ED"
                     button_hovercolor="#1366d6"
                     button_title="Export List"
+                    button_fun={() => setExportModal(true)}
                 />
                 <CustomButton
                     button_icon={<FaFileImport className="w-4 h-4 text-xs-standard" />}
                     button_color="#2F80ED"
                     button_hovercolor="#1366d6"
                     button_title="Import List"
+                    button_fun={() => setOpenEditModal(true)}
                 />
+                <CustomModal
+                    isOpen={openEditModal}
+                    onClose={() => setOpenEditModal(false)}
+                    child={< CustomForm />} />
+                <CustomModal
+                    isOpen={openExportModal}
+                    onClose={() => setExportModal(false)}
+                    child={< CustomTable table_title="Exported Student List" tabledata={students} search_placeholder="search student" ismodal={true} />} />
             </div>
-            <CustomTable table_title="Student List" tabledata={students} search_placeholder="search student" />
+            <CustomTable
+                table_title="Student List"
+                tabledata={students}
+                search_placeholder="search student"
+                ismodal={false}
+            />
         </div>
     );
 }

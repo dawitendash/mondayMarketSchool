@@ -1,14 +1,16 @@
 'use client'
 import { useState } from "react";
-import { FaPen, FaTrash } from "react-icons/fa";
+import { FaDownload, FaPen, FaTrash } from "react-icons/fa";
 import CustomAvater from "./custom_avater";
+import CustomButton from "./custom_Button";
 interface custom_table_props {
     table_title: string,
     search_placeholder: string,
     tabledata: any[],
+    ismodal: boolean
 }
 
-const CustomTable = ({ table_title, search_placeholder, tabledata }: custom_table_props) => {
+const CustomTable = ({ table_title, search_placeholder, tabledata, ismodal }: custom_table_props) => {
     const tableheader = tabledata.length > 0 ? Object.keys(tabledata[0]) : [];
     const [selectedData, setSelectedData] = useState<any[]>([]);
     console.log(JSON.stringify(selectedData))
@@ -23,11 +25,32 @@ const CustomTable = ({ table_title, search_placeholder, tabledata }: custom_tabl
                 </h3>
             </div>
             <div>
-                <input
-                    type="text"
-                    placeholder={search_placeholder}
-                    className="px-3 py-2 border lg:w-[20rem] border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
-                />
+                {
+                    !ismodal ? (
+                        <input
+                            type="text"
+                            placeholder={search_placeholder}
+                            className="px-3 py-2 border lg:w-[20rem] border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
+                        />
+                    ) : (
+                        <div className="flex flex-row gap-3">
+                            <CustomButton
+                                button_icon={<FaDownload className="w-4 h-4 text-xs-standard" />}
+                                button_color="#2F80ED"
+                                button_hovercolor="#1366d6"
+                                button_title="Download as Pdf"
+                                button_fun={() => console.log('download successfully ')}
+                            />
+                            <CustomButton
+                                button_icon={<FaDownload className="w-4 h-4 text-xs-standard" />}
+                                button_color="#2F80ED"
+                                button_hovercolor="#1366d6"
+                                button_title="Download as Excel"
+                                button_fun={() => console.log('download successfully ')}
+                            />
+                        </div>)
+                }
+
             </div>
             <div>
                 {tabledata.length === 0 ? (
@@ -37,25 +60,33 @@ const CustomTable = ({ table_title, search_placeholder, tabledata }: custom_tabl
                 ) : (<table className="min-w-full border border-gray-300 rounded-lg overflow-hidden">
                     <thead className="bg-gray-100 border- border-gray-300">
                         <tr>
-                            <th className="px-4 py-2 text-left text-sm-standard font-semibold text-gray-700 border-r border-gray-300">
-                                <input type="checkbox" className="text-blue-400"
-                                    checked={selectedData.some(item => item.id === tabledata[0].id)}
-                                    onChange={() => {
-                                        if (selectedData.length === tabledata.length) {
-                                            setSelectedData([])
-                                        } else {
-                                            setSelectedData([...tabledata])
-                                        }
-                                    }} />
-                            </th>
+                            {
+                                !ismodal ? (
+                                    <th className="px-4 py-2 text-left text-sm-standard font-semibold text-gray-700 border-r border-gray-300">
+                                        <input type="checkbox" className="text-blue-400"
+                                            checked={selectedData.some(item => item.id === tabledata[0].id)}
+                                            onChange={() => {
+                                                if (selectedData.length === tabledata.length) {
+                                                    setSelectedData([])
+                                                } else {
+                                                    setSelectedData([...tabledata])
+                                                }
+                                            }} />
+                                    </th>
+                                ) : (<></>)
+                            }
                             {tableheader.map((header) => (
                                 <th key={header} className="px-4 py-2 text-left text-sm-standard font-semibold text-gray-700 border-r border-gray-300">
                                     {header}
                                 </th>
                             ))}
-                            <th className="px-4 py-2 text-left text-sm-standard font-semibold text-gray-700 border-r border-gray-300">
-                                Action
-                            </th>
+                            {
+                                !ismodal ? (
+                                    <th className="px-4 py-2 text-left text-sm-standard font-semibold text-gray-700 border-r border-gray-300">
+                                        Action
+                                    </th>
+                                ) : (<></>)
+                            }
                         </tr>
                     </thead>
                     <tbody className="bg-white">
@@ -67,17 +98,21 @@ const CustomTable = ({ table_title, search_placeholder, tabledata }: custom_tabl
                                     }
                                     `
                                 }>
-                                    <td className="px-4 py-2 border-r border-gray-300">
-                                        <input type="checkbox" className="text-blue-400"
-                                            checked={selectedData.some(item => item.id === row.id)}
-                                            onChange={() => {
-                                                if (selectedData.some(item => item.id === row.id)) {
-                                                    setSelectedData(selectedData.filter(item => item.id !== row.id));
-                                                } else {
-                                                    setSelectedData([...selectedData, row]);
-                                                }
-                                            }} />
-                                    </td>
+                                    {
+                                        !ismodal ? (
+                                            <td className="px-4 py-2 border-r border-gray-300">
+                                                <input type="checkbox" className="text-blue-400"
+                                                    checked={selectedData.some(item => item.id === row.id)}
+                                                    onChange={() => {
+                                                        if (selectedData.some(item => item.id === row.id)) {
+                                                            setSelectedData(selectedData.filter(item => item.id !== row.id));
+                                                        } else {
+                                                            setSelectedData([...selectedData, row]);
+                                                        }
+                                                    }} />
+                                            </td>
+                                        ) : (<></>)
+                                    }
                                     {
                                         tableheader.map((header) => (
                                             <td
@@ -91,10 +126,14 @@ const CustomTable = ({ table_title, search_placeholder, tabledata }: custom_tabl
                                             </td>
                                         ))
                                     }
-                                    <td className="flex flex-row gap-2 items-center justify-center px-4 py-2 border-r border-gray-300 ">
-                                        <FaPen className="text-blue-500 text-xs-standard" />
-                                        <FaTrash className="text-red-500 text-xs-standard" />
-                                    </td>
+                                    {
+                                        !ismodal ? (
+                                            <td className="flex flex-row gap-2 items-center justify-center px-4 py-2 border-r border-gray-300 ">
+                                                <FaPen className="text-blue-500 text-xs-standard" />
+                                                <FaTrash className="text-red-500 text-xs-standard" />
+                                            </td>
+                                        ) : (<></>)
+                                    }
                                 </tr>
                             ))
                         }

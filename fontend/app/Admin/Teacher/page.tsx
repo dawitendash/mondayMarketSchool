@@ -61,21 +61,29 @@ export default function Teacher() {
                     button_color="#2F80ED"
                     button_hovercolor="#1366d6"
                     button_title="Add student"
+                    button_fun={() => { }}
                 />
                 <CustomButton
                     button_icon={<FaFileExport className="w-4 h-4 text-xs-standard" />}
                     button_color="#2F80ED"
                     button_hovercolor="#1366d6"
                     button_title="Export List"
+                    button_fun={() => { }}
                 />
                 <CustomButton
                     button_icon={<FaFileImport className="w-4 h-4 text-xs-standard" />}
                     button_color="#2F80ED"
                     button_hovercolor="#1366d6"
                     button_title="Import List"
+                    button_fun={() => { }}
                 />
             </div>
-            <CustomTable table_title="Teacher List" search_placeholder="Search teacher" tabledata={teachers} />
+            <CustomTable
+                table_title="Teacher List"
+                search_placeholder="Search teacher"
+                tabledata={teachers}
+                ismodal={false}
+            />
         </div>
     );
 }
