@@ -4,7 +4,7 @@ import CustomSideBar from '../Components/custom_sidebar';
 import "../globals.css";
 const links = [
     {
-        href: "/Admin",
+        href: "/",
         icon: <FaHome className="w-4 h-4 " />,
         text: "Dashboard",
         isActive: true,
@@ -16,7 +16,7 @@ const links = [
         isActive: false,
     },
     {
-        href: "/Admin/Teacher",
+        href: "/Teacher",
         icon: <FaChalkboardTeacher className="w-4 h-4 " />,
         text: "Teachers",
         isActive: false,

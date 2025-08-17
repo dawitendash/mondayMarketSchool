@@ -1,8 +1,10 @@
 'use client'
 import { useState } from "react";
-import { FaDownload, FaPen, FaTrash } from "react-icons/fa";
+import { FaDownload, FaFileExport, FaFileImport, FaPen, FaPlus, FaTrash } from "react-icons/fa";
+import CustomButton from "../Components/custom_Button";
+import CustomForm from "../Components/custom_form";
+import CustomModal from "../Components/custom_modal";
 import CustomAvater from "./custom_avater";
-import CustomButton from "./custom_Button";
 interface custom_table_props {
     table_title: string,
     search_placeholder: string,
@@ -11,14 +13,52 @@ interface custom_table_props {
 }
 
 const CustomTable = ({ table_title, search_placeholder, tabledata, ismodal }: custom_table_props) => {
+    const [openEditModal, setOpenEditModal] = useState(false);
+    const [openExportModal, setExportModal] = useState(false);
     const tableheader = tabledata.length > 0 ? Object.keys(tabledata[0]) : [];
     const [selectedData, setSelectedData] = useState<any[]>([]);
+
     console.log(JSON.stringify(selectedData))
     console.log('array length')
     console.log(tabledata.length)
     console.log(tabledata)
     return (
         <div className="flex flex-col space-y-4">
+            {
+                !ismodal ? (
+                    <div className=" flex flex-row bg-white shadow-lg h-[50] items-center gap-6 p-4 ">
+                        <CustomButton
+                            button_icon={<FaPlus className="w-4 h-4 text-xs-standard" />}
+                            button_color="#2F80ED"
+                            button_hovercolor="#1366d6"
+                            button_title="Add student"
+                            button_fun={() => setOpenEditModal(true)}
+                        />
+                        <CustomButton
+                            button_icon={<FaFileExport className="w-4 h-4 text-xs-standard" />}
+                            button_color="#2F80ED"
+                            button_hovercolor="#1366d6"
+                            button_title="Export List"
+                            button_fun={() => setExportModal(true)}
+                        />
+                        <CustomButton
+                            button_icon={<FaFileImport className="w-4 h-4 text-xs-standard" />}
+                            button_color="#2F80ED"
+                            button_hovercolor="#1366d6"
+                            button_title="Import List"
+                            button_fun={() => setOpenEditModal(true)}
+                        />
+                        <CustomModal
+                            isOpen={openEditModal}
+                            onClose={() => setOpenEditModal(false)}
+                            child={< CustomForm />} />
+                        <CustomModal
+                            isOpen={openExportModal}
+                            onClose={() => setExportModal(false)}
+                            child={< CustomTable table_title="Exported Student List" tabledata={selectedData} search_placeholder="search student" ismodal={true} />} />
+                    </div>
+                ) : (<></>)
+            }
             <div>
                 <h3 className="text-xl-standard font-semibold text-gray-800 mb-2 md:mb-0">
                     {table_title}
@@ -32,6 +72,7 @@ const CustomTable = ({ table_title, search_placeholder, tabledata, ismodal }: cu
                             placeholder={search_placeholder}
                             className="px-3 py-2 border lg:w-[20rem] border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
                         />
+
                     ) : (
                         <div className="flex flex-row gap-3">
                             <CustomButton
@@ -55,7 +96,7 @@ const CustomTable = ({ table_title, search_placeholder, tabledata, ismodal }: cu
             <div>
                 {tabledata.length === 0 ? (
                     <div className="text-center py-4 text-gray-500 border border-gray-300 rounded-lg text-base-standard">
-                        No student data is Found
+                        No student data is Found {selectedData.length === 0 ? `in ${table_title}` : ''}
                     </div>
                 ) : (<table className="min-w-full border border-gray-300 rounded-lg overflow-hidden">
                     <thead className="bg-gray-100 border- border-gray-300">
